@@ -1,7 +1,9 @@
 # AngularJS 1.4, TypeScript 1.6, RequireJS
 
 ## Core concepts
-- Components declare their own HTML & CSS
+- [No Controllers](http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html#comment-1660151019).  Only Components
+- Components (aka Angular Directives) declare their own HTML & CSS
+- Use TypeScript features as much as possible to get reasonably close to Angular2 code style
 - Support minification (of JS and CSS)
 - Support preloading concatenated CSS
 - Support preloading of HTML templates [TODO]
