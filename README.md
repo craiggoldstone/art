@@ -13,6 +13,7 @@
 ## Installation
 ```javascript
 git checkout https://github.com/craigsnyders/art.git
+cd art
 npm install
 bower install
 http-server -p 8080
