@@ -1,33 +1,35 @@
 import * as angular from "angular";
 
-export interface ISuperAwesomeAppScope {
+export interface IMangoScope {
     message: string;
     componentUrl: string;
 }
 
-export class SuperAwesomeApp {
-    public templateUrl = 'components/super-awesome-app/super-awesome-app.html';
+export class Mango {
+    public templateUrl = 'components/mango/mango.html';
     public restrict = 'E';
     public scope = {};
-    public link: (scope: ISuperAwesomeAppScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => void;
+    public link: (scope: IMangoScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => void;
 
     constructor($http: ng.IHttpService, $templateCache: ng.ITemplateCacheService) {
 
+        const con = Math.PI / 2;
 
-        SuperAwesomeApp.prototype.link = (scope: ISuperAwesomeAppScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
+        Mango.prototype.link = (scope: IMangoScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
             this.scope = scope;
-            scope.message = 'holy shizer - ' + this.secretMessage;
+            scope.message = 'tastes good' + con;
+
             scope.componentUrl = require.toUrl('.');
 
-            console.log('get css', scope.componentUrl + '/super-awesome-app.css');
+            console.log('get css', scope.componentUrl + '/mango.css');
 
-            var url = scope.componentUrl + '/super-awesome-app.css';
+            var url = scope.componentUrl + '/mango.css';
             if ($templateCache.get(url)) {
-                this.makeStyle('super-awesome-app.css', $templateCache.get(url).toString());
+                this.makeStyle('mango.css', $templateCache.get(url).toString());
                 console.log('found style in templatecache');
             } else {
-                $http({method: 'get', url: scope.componentUrl + '/super-awesome-app.css', cache: true}).then((response: any) => {
-                    this.makeStyle('super-awesome-app.css', response.data);
+                $http({method: 'get', url: scope.componentUrl + '/mango.css', cache: true}).then((response: any) => {
+                    this.makeStyle('mango.css', response.data);
                     console.log('got style using $http');
                 });
             }
@@ -36,7 +38,7 @@ export class SuperAwesomeApp {
 
     public static Factory() {
         var directive = ($http: ng.IHttpService, $templateCache: ng.ITemplateCacheService) => {
-            return new SuperAwesomeApp($http, $templateCache);
+            return new Mango($http, $templateCache);
         };
 
         directive['$inject'] = ['$http', '$templateCache'];
@@ -47,8 +49,6 @@ export class SuperAwesomeApp {
     private destruct() {
         console.log('did destruct stuff');
     }
-
-    private secretMessage = 'secret';
 
     private makeStyle = function makeStyle(id: string, style: string) {
         var styleNode = document.createElement('style');

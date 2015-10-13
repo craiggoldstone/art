@@ -1,28 +1,28 @@
 define(["require", "exports"], function (require, exports) {
-    var SuperAwesomeApp = (function () {
-        function SuperAwesomeApp($location) {
+    var OlMap = (function () {
+        function OlMap($location) {
             //this._$location = $location;
             var _this = this;
-            this.template = '<div id="map"></div>';
+            this.template = '<div id="map"><pre>abc</pre></div>';
             this.transclude = true;
             this.scope = {};
             this.secretMessage = 'secret';
-            SuperAwesomeApp.prototype.link = function (scope, element, attrs) {
+            OlMap.prototype.link = function (scope, element, attrs) {
                 scope.message = 'holy shizer - ' + _this.secretMessage;
                 _this.scope = scope;
             };
         }
-        SuperAwesomeApp.Factory = function () {
+        OlMap.Factory = function () {
             var directive = function ($location) {
-                return new SuperAwesomeApp($location);
+                return new OlMap($location);
             };
             directive['$inject'] = ['$location'];
             return directive;
         };
-        SuperAwesomeApp.prototype.destruct = function () {
+        OlMap.prototype.destruct = function () {
             console.log('did desctuct stuff');
         };
-        return SuperAwesomeApp;
+        return OlMap;
     })();
-    exports.SuperAwesomeApp = SuperAwesomeApp;
+    exports.OlMap = OlMap;
 });

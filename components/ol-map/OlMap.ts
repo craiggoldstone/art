@@ -4,8 +4,8 @@ export interface IOlMapScope {
     message: string;
 }
 
-export class SuperAwesomeApp{
-    public template = '<div id="map"></div>';
+export class OlMap{
+    public template = '<div id="map"><pre>abc</pre></div>';
     public transclude = true;
     public scope = {};
     public link: (scope: IOlMapScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => void;
@@ -13,7 +13,7 @@ export class SuperAwesomeApp{
     constructor($location: ng.ILocationService) {
         //this._$location = $location;
 
-        SuperAwesomeApp.prototype.link = (scope: IOlMapScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
+        OlMap.prototype.link = (scope: IOlMapScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
             scope.message = 'holy shizer - ' + this.secretMessage;
             this.scope = scope;
         }
@@ -21,7 +21,7 @@ export class SuperAwesomeApp{
 
     public static Factory() {
         var directive = ($location: ng.ILocationService) => {
-            return new SuperAwesomeApp($location);
+            return new OlMap($location);
         };
 
         directive['$inject'] = ['$location'];

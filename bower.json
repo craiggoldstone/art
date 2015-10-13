@@ -1,0 +1,16 @@
+{
+  "name": "art",
+  "version": "0.0.0",
+  "homepage": "https://github.com/craigsnyders/art",
+  "authors": [
+    "Craig Snyders <craig@snyders.co.uk>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

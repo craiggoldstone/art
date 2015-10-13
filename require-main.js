@@ -1,6 +1,7 @@
 require.config({
 	paths: {
-		'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular'
+		// 'angular': '//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular'
+		'angular': 'bower_components/angular/angular'
 	},
 	shim: {
 		'angular': {
