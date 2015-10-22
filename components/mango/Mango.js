@@ -50,3 +50,4 @@ define(["require", "exports"], function (require, exports) {
     })();
     exports.Mango = Mango;
 });
+//# sourceMappingURL=Mango.js.map

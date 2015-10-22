@@ -1,8 +1,23 @@
 module.exports = function(grunt) {
-	grunt.loadNpmTasks('grunt-requirejs');
     grunt.loadNpmTasks('grunt-angular-templates');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-requirejs');
 
     grunt.initConfig({
+
+        less: {
+            components: {
+                options: {
+                },
+                files: [{
+                    expand: true,
+                    src: "components/**/*.less",
+                    ext: ".css"
+                }]
+            }
+        },
+
         ngtemplates: {
             css: { // inline component CSS
                 src: ['components/**/*.css'],
@@ -45,6 +60,13 @@ module.exports = function(grunt) {
                     generateSourceMaps: true,
                     preserveLicenseComments: false
                 }
+            }
+        },
+
+        watch: {
+            less: {
+                files: "components/**.*.less",
+                tasks: ["less:components"]
             }
         }
     });

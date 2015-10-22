@@ -3,3 +3,4 @@ define(["require", "exports", "angular", "./Mango"], function (require, exports,
     mango.directive("mango", Mango_1.Mango.Factory());
     return mango;
 });
+//# sourceMappingURL=MangoModule.js.map

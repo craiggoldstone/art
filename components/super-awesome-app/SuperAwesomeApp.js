@@ -50,3 +50,4 @@ define(["require", "exports"], function (require, exports) {
     })();
     exports.SuperAwesomeApp = SuperAwesomeApp;
 });
+//# sourceMappingURL=SuperAwesomeApp.js.map
