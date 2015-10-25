@@ -5,4 +5,3 @@ define(["require", "exports", "./components/mango/MangoModule", "angular", "./co
     app.directive('laMap', LandAppMap_1.LandAppMap.Factory());
     return app;
 });
-//# sourceMappingURL=app.js.map

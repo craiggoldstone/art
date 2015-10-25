@@ -1,26 +1,21 @@
 /// <amd-dependency path="proj4" name="proj4" />
-define(["require", "exports", "proj4", "openlayers", "./land-app-map-controller"], function (require, exports, proj4, ol, land_app_map_controller_1) {
-    var LandAppMap = (function () {
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+define(["require", "exports", "proj4", "openlayers", "./land-app-map-controller", "../component/Component"], function (require, exports, proj4, ol, land_app_map_controller_1, Component_1) {
+    var LandAppMap = (function (_super) {
+        __extends(LandAppMap, _super);
         function LandAppMap($http, $templateCache) {
             var _this = this;
+            _super.call(this, $http, $templateCache, 'land-app-map', true);
             this.templateUrl = 'components/land-app-map/land-app-map.html';
             this.restrict = 'E';
-            this.scope = {};
+            this.scope = {}; // isolate scope
             this.controllerAs = 'mapCtrl';
             this.controller = land_app_map_controller_1.LandAppMapController;
-            // helper function to inject css
-            this.makeStyle = function makeStyle(id, style) {
-                var styleNode = document.createElement('style');
-                styleNode.id = id;
-                styleNode.type = 'text/css';
-                if (styleNode.hasOwnProperty('styleSheet')) {
-                    styleNode['styleSheet'].cssText = style;
-                }
-                else {
-                    styleNode.appendChild(document.createTextNode(style));
-                }
-                document.head.appendChild(styleNode);
-            };
+            this.name = 'land-app-map';
             window['proj4'] = proj4;
             //proj4.defs('EPSG:27700', '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs');
             proj4.defs("EPSG:27700", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs");
@@ -80,24 +75,19 @@ define(["require", "exports", "proj4", "openlayers", "./land-app-map-controller"
                     view: view,
                     controls: []
                 });
-                scope.componentUrl = require.toUrl('.');
-                // helper code to inject css
-                var url = scope.componentUrl + '/land-app-map.css';
-                if ($templateCache.get(url)) {
-                    _this.makeStyle('land-app-map.css', $templateCache.get(url).toString());
-                    console.log('found style in templatecache');
-                }
-                else {
-                    $http({ method: 'get', url: scope.componentUrl + '/land-app-map.css', cache: true }).then(function (response) {
-                        _this.makeStyle('land-app-map.css', response.data);
-                        console.log('got style using $http');
-                    });
-                }
+                //// helper code to inject css
+                //var url = scope.componentUrl + '/land-app-map.css';
+                //if ($templateCache.get(url)) {
+                //    this.makeStyle('land-app-map.css', $templateCache.get(url).toString());
+                //    console.log('found style in templatecache');
+                //} else {
+                //    $http({method: 'get', url: scope.componentUrl + '/land-app-map.css', cache: true}).then((response: any) => {
+                //        this.makeStyle('land-app-map.css', response.data);
+                //        console.log('got style using $http');
+                //    });
+                //}
             };
         }
-        //public controller = ['$scope', '$element', '$attrs', '$transclude', function($scope, $element, $attrs, $transclude) {
-        //    console.log('controller initialised');
-        //}];
         LandAppMap.Factory = function () {
             var directive = function ($http, $templateCache) {
                 return new LandAppMap($http, $templateCache);
@@ -106,7 +96,6 @@ define(["require", "exports", "proj4", "openlayers", "./land-app-map-controller"
             return directive;
         };
         return LandAppMap;
-    })();
+    })(Component_1.Component);
     exports.LandAppMap = LandAppMap;
 });
-//# sourceMappingURL=LandAppMap.js.map

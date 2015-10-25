@@ -1,36 +1,24 @@
 import * as angular from "angular";
+import {Component} from "../component/Component";
 
 export interface ISuperAwesomeAppScope {
     message: string;
     componentUrl: string;
 }
 
-export class SuperAwesomeApp {
+export class SuperAwesomeApp extends Component {
     public templateUrl = 'components/super-awesome-app/super-awesome-app.html';
     public restrict = 'E';
     public scope = {};
     public link: (scope: ISuperAwesomeAppScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => void;
 
     constructor($http: ng.IHttpService, $templateCache: ng.ITemplateCacheService) {
-
+        super($http, $templateCache, 'super-awesome-app', true);
 
         SuperAwesomeApp.prototype.link = (scope: ISuperAwesomeAppScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
+
             this.scope = scope;
             scope.message = 'holy shizer - ' + this.secretMessage;
-            scope.componentUrl = require.toUrl('.');
-
-            console.log('get css', scope.componentUrl + '/super-awesome-app.css');
-
-            var url = scope.componentUrl + '/super-awesome-app.css';
-            if ($templateCache.get(url)) {
-                this.makeStyle('super-awesome-app.css', $templateCache.get(url).toString());
-                console.log('found style in templatecache');
-            } else {
-                $http({method: 'get', url: scope.componentUrl + '/super-awesome-app.css', cache: true}).then((response: any) => {
-                    this.makeStyle('super-awesome-app.css', response.data);
-                    console.log('got style using $http');
-                });
-            }
         }
     }
 
@@ -49,16 +37,4 @@ export class SuperAwesomeApp {
     }
 
     private secretMessage = 'secret';
-
-    private makeStyle = function makeStyle(id: string, style: string) {
-        var styleNode = document.createElement('style');
-        styleNode.id = id;
-        styleNode.type = 'text/css';
-        if (styleNode.hasOwnProperty('styleSheet')) {
-            styleNode['styleSheet'].cssText = style;
-        } else {
-            styleNode.appendChild(document.createTextNode(style));
-        }
-        document.head.appendChild(styleNode);
-    }
 }

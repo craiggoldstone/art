@@ -2,3 +2,6 @@ la-map {
   display: block;
   height: 100%;
 }
+la-map h1 {
+  color: darkmagenta;
+}

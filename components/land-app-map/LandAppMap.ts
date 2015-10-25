@@ -3,6 +3,7 @@
 import * as angular from "angular";
 import * as ol from "openlayers";
 import {LandAppMapController} from "./land-app-map-controller";
+import {Component} from "../component/Component";
 
 declare var proj4; // to suppress TS warnings
 
@@ -12,15 +13,17 @@ export interface ILandAppMapScope {
     map: any;
 }
 
-export class LandAppMap {
+export class LandAppMap extends Component {
     public templateUrl: string = 'components/land-app-map/land-app-map.html';
     public restrict: string = 'E';
-    public scope = {};
+    public scope = {}; // isolate scope
     public link: (scope: ILandAppMapScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => void;
     public controllerAs: string = 'mapCtrl';
     public controller = LandAppMapController;
+    public name: string = 'land-app-map';
 
     constructor($http: ng.IHttpService, $templateCache: ng.ITemplateCacheService) {
+        super($http, $templateCache, 'land-app-map', true);
         window['proj4'] = proj4;
         //proj4.defs('EPSG:27700', '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs');
         proj4.defs("EPSG:27700","+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs");
@@ -92,25 +95,20 @@ export class LandAppMap {
                 view: view,
                 controls: []
             });
-            scope.componentUrl = require.toUrl('.');
 
-            // helper code to inject css
-            var url = scope.componentUrl + '/land-app-map.css';
-            if ($templateCache.get(url)) {
-                this.makeStyle('land-app-map.css', $templateCache.get(url).toString());
-                console.log('found style in templatecache');
-            } else {
-                $http({method: 'get', url: scope.componentUrl + '/land-app-map.css', cache: true}).then((response: any) => {
-                    this.makeStyle('land-app-map.css', response.data);
-                    console.log('got style using $http');
-                });
-            }
+            //// helper code to inject css
+            //var url = scope.componentUrl + '/land-app-map.css';
+            //if ($templateCache.get(url)) {
+            //    this.makeStyle('land-app-map.css', $templateCache.get(url).toString());
+            //    console.log('found style in templatecache');
+            //} else {
+            //    $http({method: 'get', url: scope.componentUrl + '/land-app-map.css', cache: true}).then((response: any) => {
+            //        this.makeStyle('land-app-map.css', response.data);
+            //        console.log('got style using $http');
+            //    });
+            //}
         }
     }
-
-    //public controller = ['$scope', '$element', '$attrs', '$transclude', function($scope, $element, $attrs, $transclude) {
-    //    console.log('controller initialised');
-    //}];
 
     public static Factory() {
         var directive = ($http: ng.IHttpService, $templateCache: ng.ITemplateCacheService) => {
@@ -120,16 +118,5 @@ export class LandAppMap {
         return directive;
     }
 
-    // helper function to inject css
-    private makeStyle = function makeStyle(id: string, style: string) {
-        var styleNode = document.createElement('style');
-        styleNode.id = id;
-        styleNode.type = 'text/css';
-        if (styleNode.hasOwnProperty('styleSheet')) {
-            styleNode['styleSheet'].cssText = style;
-        } else {
-            styleNode.appendChild(document.createTextNode(style));
-        }
-        document.head.appendChild(styleNode);
-    }
+
 }

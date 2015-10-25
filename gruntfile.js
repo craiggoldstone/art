@@ -53,9 +53,9 @@ module.exports = function(grunt) {
         requirejs: {
             app: {
                 options: {
-                    mainConfigFile: ["require-main.js"],
+                    mainConfigFile: ["config.js"],
                     out: "app.min.js",
-                    include: ['require-main.js', 'app-html-templates', 'app-css-templates'],
+                    include: ['config.js', 'app-html-templates', 'app-css-templates'],
                     optimize: 'uglify2',
                     generateSourceMaps: true,
                     preserveLicenseComments: false
